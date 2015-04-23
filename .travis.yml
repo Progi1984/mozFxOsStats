@@ -1,0 +1,17 @@
+language: php
+
+php:
+  - 5.6
+
+env:
+  global:
+  - secure: "V+QRbDYGe+WXpPsR1mYlaDpTMU2YFwMNMy8enVvgfAhEU8fHuHcOBZ/sEbWWBdEiN7QIT/hq3R9+/Kco2cb4wb1ckHQgiS1q+qjlyn2rb8vdEDPJ7S59PmD5LkfLpTQOQW4EkpoRnQiz01jLwOcvUrQKREZKq4BAhuGP5XGPQwM="
+
+before_script:
+  - bash ./src/preScript.sh
+
+script:
+  - php ./src/generateStats.php
+
+after_script:
+  - bash ./src/postScript.sh
