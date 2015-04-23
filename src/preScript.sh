@@ -8,7 +8,7 @@ if [ "$TRAVIS_REPO_SLUG" == "Progi1984/mozFxOsStats" ] && [ "$TRAVIS_PULL_REQUES
   cd $HOME
   git config --global user.email "progi1984@gmail.com"
   git config --global user.name "Progi1984 CI"
-  git clone --quiet --branch=develop https://${GH_TOKEN}@github.com/Progi1984/mozFxOsStats developdevelop > /dev/null
+  git clone --quiet --branch=develop https://${GH_TOKEN}@github.com/Progi1984/mozFxOsStats develop > /dev/null
   cd develop
 
   ## if the file of the month not exists
