@@ -239,6 +239,7 @@ foreach($arrayFiles as $key => $filename){
 		$arrayStats['lastMonth']['createdDate'][$dateCreated.'-01']++;
 		// Price
 		if(!is_null($oApp->price_locale)){
+			$oApp->price_locale = str_replace('$', '', $oApp->price_locale);
 			if(!isset($arrayStats['lastMonth']['priceLocale'][$oApp->price_locale])){
 				$arrayStats['lastMonth']['priceLocale'][$oApp->price_locale] = 0;
 			}
@@ -296,6 +297,6 @@ foreach($arrayFiles as $key => $filename){
 // After
 ksort($arrayStats['lastMonth']['createdDate']);
 ksort($arrayStats['lastMonth']['geo']);
-ksort($arrayStats['lastMonth']['priceLocale']);
+ksort($arrayStats['lastMonth']['priceLocale'], SORT_NUMERIC);
 
 file_put_contents('stats.json', json_encode($arrayStats));
