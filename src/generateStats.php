@@ -49,10 +49,6 @@ $arrayStats = array(
 		0 => array(),
 		1 => array(),
 	),
-	'stateOffline' => array(
-		0 => array(),
-		1 => array(),
-	),
 	'statePackaged' => array(
 		0 => array(),
 		1 => array(),
@@ -80,13 +76,13 @@ $arrayStats = array(
 		'other' => array(),
 	),
 	'lastMonth' => array(
-		'createdDate' => array(),
 		'avgRating0' => 0,
 		'avgRating1' => 0,
 		'avgRating2' => 0,
 		'avgRating3' => 0,
 		'avgRating4' => 0,
 		'avgRating5' => 0,
+		'createdDate' => array(),
 		'geo' => array(),
 	),
 );
@@ -200,6 +196,22 @@ foreach($arrayFiles as $key => $filename){
 	$arrayStats['rating']['num'][$filename] += $oApp->ratings->count;
 	$arrayStats['rating']['amount'][$filename] += $oApp->ratings->average;
 	$arrayStats['rating']['average'][$filename] = $arrayStats['rating']['amount'][$filename] / $arrayStats['numApps'][$filename];
+	// Boolean state
+	if($oApp->is_disabled == true){
+		$arrayStats['stateDisabled'][1][$filename]++;
+	} else {
+		$arrayStats['stateDisabled'][0][$filename]++;
+	}
+	if($oApp->is_packaged == true){
+		$arrayStats['statePackaged'][1][$filename]++;
+	} else {
+		$arrayStats['statePackaged'][0][$filename]++;
+	}
+	if($oApp->public_stats == true){
+		$arrayStats['statePublicStats'][1][$filename]++;
+	} else {
+		$arrayStats['statePublicStats'][0][$filename]++;
+	}
 
 	if($bLast && !empty($oApp->created)){
 		// Creation date
@@ -235,22 +247,6 @@ foreach($arrayFiles as $key => $filename){
 			$arrayStats['lastMonth']['geo'][$arrayGeo[$oApp->default_locale]]++;
 		} else {
 			echo $oApp->default_locale.PHP_EOL;
-		}
-		// Boolean state
-		if($oApp->is_disabled == true){
-			$arrayStats['stateDisabled'][1][$filename]++;
-		} else {
-			$arrayStats['stateDisabled'][0][$filename]++;
-		}
-		if($oApp->is_packaged == true){
-			$arrayStats['statePackaged'][1][$filename]++;
-		} else {
-			$arrayStats['statePackaged'][0][$filename]++;
-		}
-		if($oApp->public_stats == true){
-			$arrayStats['statePublicStats'][1][$filename]++;
-		} else {
-			$arrayStats['statePublicStats'][0][$filename]++;
 		}
 	}
   }
