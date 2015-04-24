@@ -215,17 +215,17 @@ foreach($arrayFiles as $key => $filename){
 	$arrayStats['rating']['amount'][$filename] += $oApp->ratings->average;
 	$arrayStats['rating']['average'][$filename] = $arrayStats['rating']['amount'][$filename] / $arrayStats['numApps'][$filename];
 	// Boolean state
-	if($oApp->is_disabled == true){
+	if(isset($oApp->is_disabled) && $oApp->is_disabled == true){
 		$arrayStats['stateDisabled'][1][$filename]++;
 	} else {
 		$arrayStats['stateDisabled'][0][$filename]++;
 	}
-	if($oApp->is_packaged == true){
+	if(isset($oApp->is_packaged) && $oApp->is_packaged == true){
 		$arrayStats['statePackaged'][1][$filename]++;
 	} else {
 		$arrayStats['statePackaged'][0][$filename]++;
 	}
-	if($oApp->public_stats == true){
+	if(isset($oApp->public_stats) && $oApp->public_stats == true){
 		$arrayStats['statePublicStats'][1][$filename]++;
 	} else {
 		$arrayStats['statePublicStats'][0][$filename]++;
