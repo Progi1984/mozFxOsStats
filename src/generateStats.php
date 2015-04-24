@@ -214,7 +214,6 @@ foreach($arrayFiles as $key => $filename){
 	$arrayStats['rating']['num'][$filename] += $oApp->ratings->count;
 	$arrayStats['rating']['amount'][$filename] += $oApp->ratings->average;
 	$arrayStats['rating']['average'][$filename] = $arrayStats['rating']['amount'][$filename] / $arrayStats['numApps'][$filename];
-	// Boolean state
 	if(isset($oApp->is_disabled) && $oApp->is_disabled == true){
 		$arrayStats['stateDisabled'][1][$filename]++;
 	} else {
@@ -275,12 +274,12 @@ foreach($arrayFiles as $key => $filename){
 		}
 		// Filesize
 		$before = 0;
-		foreach($arrayStats['lastMonth']['size'] as $size){
-			if($before < $oApp->file_size && $size >= $oApp->file_size){
-				$arrayStats['lastMonth']['size'][$size]++;
+		foreach($arrayStats['lastMonth']['size'] as $keySize => $numSize){
+			if($before < $oApp->file_size && $keySize >= $oApp->file_size){
+				$arrayStats['lastMonth']['size'][$keySize]++;
 				break;
 			}
-			$before = $size;
+			$before = $keySize;
 		}
 	}
   }
@@ -297,5 +296,6 @@ foreach($arrayFiles as $key => $filename){
 // After
 ksort($arrayStats['lastMonth']['createdDate']);
 ksort($arrayStats['lastMonth']['geo']);
+ksort($arrayStats['lastMonth']['priceLocale']);
 
 file_put_contents('stats.json', json_encode($arrayStats));
