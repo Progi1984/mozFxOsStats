@@ -11,9 +11,9 @@ if [ "$TRAVIS_REPO_SLUG" == "Progi1984/mozFxOsStats" ] && [ "$TRAVIS_PULL_REQUES
   cd gh-pages
 
   ## Copy stats.json
-  cp $TRAVIS_BUILD_DIR/src/stats.json statics/stats.json
+  cp $TRAVIS_BUILD_DIR/stats.json statics/stats.json
 
   ## Commit it the update of the file
-  git commit statics/stats.json -m "CI Stats File Update \"$DATEDAY\""
+  git commit -m "CI Stats File Update \"$DATEDAY\""
   git push -fq origin gh-pages > /dev/null
 fi
