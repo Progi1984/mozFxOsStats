@@ -84,6 +84,24 @@ $arrayStats = array(
 		'avgRating5' => 0,
 		'createdDate' => array(),
 		'geo' => array(),
+		'priceLocale' => array(),
+		'size' =>  array(
+			'1024' => 0,
+			'2048' => 0,
+			'3072' => 0,
+			'4096' => 0,
+			'5120' => 0,
+			'6144' => 0,
+			'7168' => 0,
+			'8192' => 0,
+			'9216' => 0,
+			'10240' => 0,
+			'51200' => 0,
+			'102400' => 0,
+			'512000' => 0,
+			'1024000' => 0,
+			'5120000' => 0,
+		),
 	),
 );
 
@@ -220,6 +238,13 @@ foreach($arrayFiles as $key => $filename){
 			$arrayStats['lastMonth']['createdDate'][$dateCreated.'-01'] = 0;
 		}
 		$arrayStats['lastMonth']['createdDate'][$dateCreated.'-01']++;
+		// Price
+		if(!is_null($oApp->price_locale)){
+			if(!isset($arrayStats['lastMonth']['priceLocale'][$oApp->price_locale])){
+				$arrayStats['lastMonth']['priceLocale'][$oApp->price_locale] = 0;
+			}
+			$arrayStats['lastMonth']['priceLocale'][$oApp->price_locale]++;
+		}		
 		// Rating
 		if($oApp->ratings->average >= 5){
           $arrayStats['lastMonth']['avgRating5']++;
@@ -247,6 +272,15 @@ foreach($arrayFiles as $key => $filename){
 			$arrayStats['lastMonth']['geo'][$arrayGeo[$oApp->default_locale]]++;
 		} else {
 			echo $oApp->default_locale.PHP_EOL;
+		}
+		// Filesize
+		$before = 0;
+		foreach($arrayStats['lastMonth']['size'] as $size){
+			if($before < $oApp->file_size && $size >= $oApp->file_size){
+				$arrayStats['lastMonth']['size'][$size]++
+				break;
+			}
+			$before = $size;
 		}
 	}
   }
