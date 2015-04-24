@@ -36,73 +36,79 @@ foreach ($oDir as $oDirItem) {
   }
   $arrayFiles[] = pathinfo($oDirItem->getFilename(), PATHINFO_FILENAME);
 }
-asort($arrayFiles);
+sort($arrayFiles);
 
 $arrayStats = array(
-    'numApps' => array(),
-    'rating' => array(
-        'num' => array(),
-        'amount' => array(),
-        'average' => array(),
+  'categories' => array(),
+  'numApps' => array(),
+  'numAppsWithUpsell' => array(),
+  'rating' => array(
+    'num' => array(),
+    'amount' => array(),
+    'average' => array(),
+  ),
+  'stateDisabled' => array(
+    0 => array(),
+    1 => array(),
+  ),
+  'statePackaged' => array(
+    0 => array(),
+    1 => array(),
+  ),
+  'statePublicStats' => array(
+    0 => array(),
+    1 => array(),
+  ),
+  'typeApp' => array(
+    'hosted' => array(),
+    'packaged' => array(),
+    'privileged' => array(),
+  ),
+  'typeDevice' => array(
+    'android-mobile' => array(),
+    'android-tablet' => array(),
+    'desktop' => array(),
+    'firefoxos' => array(),
+  ),
+  'typePremium' => array(
+    'free-inapp' => array(),
+    'free' => array(),
+    'premium' => array(),
+    'premium-inapp' => array(),
+    'other' => array(),
+  ),
+  'lastMonth' => array(
+    'avgRating0' => 0,
+    'avgRating1' => 0,
+    'avgRating2' => 0,
+    'avgRating3' => 0,
+    'avgRating4' => 0,
+    'avgRating5' => 0,
+    'createdDate' => array(),
+    'updatedLast' => array(),
+    'geo' => array(),
+    'priceLocale' => array(),
+    'status' => array(),
+    'size' =>  array(
+        '1024' => 0,
+        '2048' => 0,
+        '3072' => 0,
+        '4096' => 0,
+        '5120' => 0,
+        '6144' => 0,
+        '7168' => 0,
+        '8192' => 0,
+        '9216' => 0,
+        '10240' => 0,
+        '51200' => 0,
+        '102400' => 0,
+        '512000' => 0,
+        '1024000' => 0,
+        '5120000' => 0,
     ),
-    'stateDisabled' => array(
-        0 => array(),
-        1 => array(),
-    ),
-    'statePackaged' => array(
-        0 => array(),
-        1 => array(),
-    ),
-    'statePublicStats' => array(
-        0 => array(),
-        1 => array(),
-    ),
-    'typeApp' => array(
-        'hosted' => array(),
-        'packaged' => array(),
-        'privileged' => array(),
-    ),
-    'typeDevice' => array(
-        'android-mobile' => array(),
-        'android-tablet' => array(),
-        'desktop' => array(),
-        'firefoxos' => array(),
-    ),
-    'typePremium' => array(
-        'free-inapp' => array(),
-        'free' => array(),
-        'premium' => array(),
-        'premium-inapp' => array(),
-        'other' => array(),
-    ),
-    'lastMonth' => array(
-        'avgRating0' => 0,
-        'avgRating1' => 0,
-        'avgRating2' => 0,
-        'avgRating3' => 0,
-        'avgRating4' => 0,
-        'avgRating5' => 0,
-        'createdDate' => array(),
-        'geo' => array(),
-        'priceLocale' => array(),
-        'size' =>  array(
-            '1024' => 0,
-            '2048' => 0,
-            '3072' => 0,
-            '4096' => 0,
-            '5120' => 0,
-            '6144' => 0,
-            '7168' => 0,
-            '8192' => 0,
-            '9216' => 0,
-            '10240' => 0,
-            '51200' => 0,
-            '102400' => 0,
-            '512000' => 0,
-            '1024000' => 0,
-            '5120000' => 0,
-        ),
-    ),
+    'topPublishers' => array(),
+    'topRated' => array(),
+  ),
 );
 
 /**
@@ -110,43 +116,48 @@ $arrayStats = array(
  * Country : http://jvectormap.com/maps/world/world/
  */
 $arrayGeo = array(
-    'ar' => 'AE',
-    'bg' => 'BG',
-    'bn-BD' => 'BD',
-    'ca' => 'ES',
-    'cs' => 'CZ',
-    'de' => 'DE',
-    'en-US' => 'US',
-    'el' => 'GR',
-    'es' => 'ES',
-    'eu' => 'ES',
-    'fa' => 'IR',
-    'fi' => 'FI',
-    'fr' => 'FR',
-    'hr' => 'HR',
-    'hu' => 'HU',
-    'id' => 'ID',
-    'it' => 'IT',
-    'ja' => 'JP',
-    'ko' => 'KR',
-    'nl' => 'NL',
-    'pl' => 'PL',
-    'pt-BR' => 'BR',
-    'pt-PT' => 'PT',
-    'ro' => 'RO',
-    'ru' => 'RU',
-    'sl' => 'SI',
-    'sq' => 'AL',
-    'sr' => 'RS',
-    'sv-SE' => 'SE',
-    'ta' => 'IN',
-    'tr' => 'TR',
-    'vi' => 'VN',
-    'zh-CN' => 'CN',
-    'zh-TW' => 'TW',
+  'ar' => 'AE',
+  'bg' => 'BG',
+  'bn-BD' => 'BD',
+  'ca' => 'ES',
+  'cs' => 'CZ',
+  'de' => 'DE',
+  'en-US' => 'US',
+  'el' => 'GR',
+  'es' => 'ES',
+  'eu' => 'ES',
+  'fa' => 'IR',
+  'fi' => 'FI',
+  'fr' => 'FR',
+  'hr' => 'HR',
+  'hu' => 'HU',
+  'id' => 'ID',
+  'it' => 'IT',
+  'ja' => 'JP',
+  'ko' => 'KR',
+  'nl' => 'NL',
+  'pl' => 'PL',
+  'pt-BR' => 'BR',
+  'pt-PT' => 'PT',
+  'ro' => 'RO',
+  'ru' => 'RU',
+  'sl' => 'SI',
+  'sq' => 'AL',
+  'sr' => 'RS',
+  'sv-SE' => 'SE',
+  'ta' => 'IN',
+  'tr' => 'TR',
+  'vi' => 'VN',
+  'zh-CN' => 'CN',
+  'zh-TW' => 'TW',
 );
 
 foreach($arrayFiles as $key => $filename){
+  $bLast = false;
+  if ($key == count($arrayFiles) - 1) {
+    $bLast = true;
+  }
+
   // Create the directory
   if(!file_exists($dirDataTgz.$filename)){
     mkdir($dirDataTgz.$filename);
@@ -160,7 +171,9 @@ foreach($arrayFiles as $key => $filename){
   unset($archiveTAR);
 
   // Initialization
+  $arrayStats['categories'][$filename] = array();
   $arrayStats['numApps'][$filename] = 0;
+  $arrayStats['numAppsWithUpsell'][$filename] = 0;
   $arrayStats['rating']['num'][$filename] = 0;
   $arrayStats['rating']['amount'][$filename] = 0;
   $arrayStats['rating']['average'][$filename] = 0;
@@ -183,11 +196,6 @@ foreach($arrayFiles as $key => $filename){
   $arrayStats['typePremium']['premium-inapp'][$filename] = 0;
   $arrayStats['typePremium']['other'][$filename] = 0;
   
-  $bLast = false;
-  if ($key == count($arrayFiles) - 1) {
-      $bLast = true;
-  }
-  
   // Analysis
   //@link : https://firefox-marketplace-api.readthedocs.org/en/latest/topics/export.html
   //@link : https://firefox-marketplace-api.readthedocs.org/en/latest/topics/apps.html#id2
@@ -206,6 +214,9 @@ foreach($arrayFiles as $key => $filename){
     
     // Stats
     $arrayStats['numApps'][$filename]++;
+    if(isset($oApp->upsell) && $oApp->upsell == true) {
+      $arrayStats['numAppsWithUpsell'][$filename]++;
+    }
     $arrayStats['typePremium'][$oApp->premium_type][$filename]++;
     $arrayStats['typeApp'][$oApp->app_type][$filename]++;
     foreach($oApp->device_types as $device_type){
@@ -229,61 +240,99 @@ foreach($arrayFiles as $key => $filename){
     } else {
         $arrayStats['statePublicStats'][0][$filename]++;
     }
+    foreach($oApp->categories as $category){
+      if(!isset($arrayStats['categories'][$filename][$category])){
+        $arrayStats['categories'][$filename][$category] = 0;
+      }
+      $arrayStats['categories'][$filename][$category]++;
+    }
 
     if($bLast){
-        // Creation date
-        if(!empty($oApp->created)){
-            $dateCreated = substr($oApp->created, 0, 7);
-            if(!isset($arrayStats['lastMonth']['createdDate'][$dateCreated.'-01'])){
-                $arrayStats['lastMonth']['createdDate'][$dateCreated.'-01'] = 0;
-            }
-            $arrayStats['lastMonth']['createdDate'][$dateCreated.'-01']++;
+      // Name
+      if(isset($oApp->name->{'en-US'})){
+        $sName = $oApp->name->{'en-US'};
+      } else {
+        $arrayName = (array)$oApp->name;
+        $sName = reset($arrayName);
+      }
+
+      // Creation date
+      if(!empty($oApp->created)){
+        $dateCreated = substr($oApp->created, 0, 7);
+        if(!isset($arrayStats['lastMonth']['createdDate'][$dateCreated.'-01'])){
+            $arrayStats['lastMonth']['createdDate'][$dateCreated.'-01'] = 0;
         }
-        // Price
-        if(!is_null($oApp->price_locale)){
-            $oApp->price_locale = str_replace('$', '', $oApp->price_locale);
-            if(!isset($arrayStats['lastMonth']['priceLocale'][$oApp->price_locale])){
-                $arrayStats['lastMonth']['priceLocale'][$oApp->price_locale] = 0;
-            }
-            $arrayStats['lastMonth']['priceLocale'][$oApp->price_locale]++;
-        }        
-        // Rating
-        if($oApp->ratings->average >= 5){
-          $arrayStats['lastMonth']['avgRating5']++;
+        $arrayStats['lastMonth']['createdDate'][$dateCreated.'-01']++;
+      }
+      // Filesize
+      $before = 0;
+      foreach($arrayStats['lastMonth']['size'] as $keySize => $numSize){
+        if($before < $oApp->file_size && $keySize >= $oApp->file_size){
+          $arrayStats['lastMonth']['size'][$keySize]++;
+          break;
         }
-        if($oApp->ratings->average >= 4 && $oApp->ratings->average < 5){
-          $arrayStats['lastMonth']['avgRating4']++;
+        $before = $keySize;
+      }
+      // Last updated
+      $dtApp = date_create(substr($oApp->last_updated, 0, 10));
+      $dtNow = date_create(date('Y-m-d'));
+      $oInterval = date_diff($dtApp, $dtNow);
+      $numMonths = $oInterval->format('%m');
+      if(!isset($arrayStats['lastMonth']['updatedLast'][$numMonths])){
+        $arrayStats['lastMonth']['updatedLast'][$numMonths] = 0;
+      }
+      $arrayStats['lastMonth']['updatedLast'][$numMonths]++;
+      // Locale
+      if(isset($arrayGeo[$oApp->default_locale])){
+        if(!isset($arrayStats['lastMonth']['geo'][$arrayGeo[$oApp->default_locale]])){
+            $arrayStats['lastMonth']['geo'][$arrayGeo[$oApp->default_locale]] = 0;
         }
-        if($oApp->ratings->average >= 3 && $oApp->ratings->average < 4){
-          $arrayStats['lastMonth']['avgRating3']++;
+        $arrayStats['lastMonth']['geo'][$arrayGeo[$oApp->default_locale]]++;
+      } else {
+        echo $oApp->default_locale.PHP_EOL;
+      }
+      // Price
+      if(!is_null($oApp->price_locale)){
+          $oApp->price_locale = str_replace('$', '', $oApp->price_locale);
+        if(!isset($arrayStats['lastMonth']['priceLocale'][$oApp->price_locale])){
+            $arrayStats['lastMonth']['priceLocale'][$oApp->price_locale] = 0;
         }
-        if($oApp->ratings->average >= 2 && $oApp->ratings->average < 3){
-          $arrayStats['lastMonth']['avgRating2']++;
-        }
-        if($oApp->ratings->average >= 1 && $oApp->ratings->average < 2){
-          $arrayStats['lastMonth']['avgRating1']++;
-        }
-        if($oApp->ratings->average >= 0 && $oApp->ratings->average < 1){
-          $arrayStats['lastMonth']['avgRating0']++;
-        }
-        // Locale
-        if(isset($arrayGeo[$oApp->default_locale])){
-            if(!isset($arrayStats['lastMonth']['geo'][$arrayGeo[$oApp->default_locale]])){
-                $arrayStats['lastMonth']['geo'][$arrayGeo[$oApp->default_locale]] = 0;
-            }
-            $arrayStats['lastMonth']['geo'][$arrayGeo[$oApp->default_locale]]++;
-        } else {
-            echo $oApp->default_locale.PHP_EOL;
-        }
-        // Filesize
-        $before = 0;
-        foreach($arrayStats['lastMonth']['size'] as $keySize => $numSize){
-            if($before < $oApp->file_size && $keySize >= $oApp->file_size){
-                $arrayStats['lastMonth']['size'][$keySize]++;
-                break;
-            }
-            $before = $keySize;
-        }
+        $arrayStats['lastMonth']['priceLocale'][$oApp->price_locale]++;
+      }
+      // Rating
+      if($oApp->ratings->average >= 5){
+        $arrayStats['lastMonth']['avgRating5']++;
+      }
+      if($oApp->ratings->average >= 4 && $oApp->ratings->average < 5){
+        $arrayStats['lastMonth']['avgRating4']++;
+      }
+      if($oApp->ratings->average >= 3 && $oApp->ratings->average < 4){
+        $arrayStats['lastMonth']['avgRating3']++;
+      }
+      if($oApp->ratings->average >= 2 && $oApp->ratings->average < 3){
+        $arrayStats['lastMonth']['avgRating2']++;
+      }
+      if($oApp->ratings->average >= 1 && $oApp->ratings->average < 2){
+        $arrayStats['lastMonth']['avgRating1']++;
+      }
+      if($oApp->ratings->average >= 0 && $oApp->ratings->average < 1){
+        $arrayStats['lastMonth']['avgRating0']++;
+      }
+      // Status
+      if(!isset($arrayStats['lastMonth']['status'][$oApp->status])){
+          $arrayStats['lastMonth']['status'][$oApp->status] = 0;
+      }
+      $arrayStats['lastMonth']['status'][$oApp->status]++;
+      // Top Publishers
+      if(!isset($arrayStats['lastMonth']['topPublishers'][$oApp->author])){
+        $arrayStats['lastMonth']['topPublishers'][$oApp->author] = 0;
+      }
+      $arrayStats['lastMonth']['topPublishers'][$oApp->author]++;
+      // Top Rated
+      if(!isset($arrayStats['lastMonth']['topRated'][$oApp->ratings->count])){
+        $arrayStats['lastMonth']['topRated'][$oApp->ratings->count] = array();
+      }
+      $arrayStats['lastMonth']['topRated'][$oApp->ratings->count][] = $sName;
     }
   }
   unset($oIterator);
@@ -300,5 +349,22 @@ foreach($arrayFiles as $key => $filename){
 ksort($arrayStats['lastMonth']['createdDate']);
 ksort($arrayStats['lastMonth']['geo']);
 ksort($arrayStats['lastMonth']['priceLocale'], SORT_NUMERIC);
+arsort($arrayStats['lastMonth']['topPublishers']);
+array_splice($arrayStats['lastMonth']['topPublishers'], 20);
+$arrayStats['lastMonth']['topPublishers'] = array_flip($arrayStats['lastMonth']['topPublishers']);
+$arrayTopRated = $arrayStats['lastMonth']['topRated'];
+$arrayStats['lastMonth']['topRated'] = array();
+foreach($arrayTopRated as $key => $array){
+  foreach ($array as $item) {
+    $arrayStats['lastMonth']['topRated'][$item] = $key;
+  }
+}
+arsort($arrayStats['lastMonth']['topRated']);
+array_splice($arrayStats['lastMonth']['topRated'], 20);
+$arrayStats['lastMonth']['topRated'] = array_flip($arrayStats['lastMonth']['topRated']);
+krsort($arrayStats['lastMonth']['updatedLast']);
+foreach($arrayStats['categories'] as &$arrayCategory) {
+  ksort($arrayCategory);
+}
 
 file_put_contents('stats.json', json_encode($arrayStats));
