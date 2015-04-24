@@ -277,7 +277,7 @@ foreach($arrayFiles as $key => $filename){
 		$before = 0;
 		foreach($arrayStats['lastMonth']['size'] as $size){
 			if($before < $oApp->file_size && $size >= $oApp->file_size){
-				$arrayStats['lastMonth']['size'][$size]++
+				$arrayStats['lastMonth']['size'][$size]++;
 				break;
 			}
 			$before = $size;
