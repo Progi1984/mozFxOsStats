@@ -34,10 +34,13 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#chartTypeAppsTitle">Applications <span class="sr-only">(current)</span></a></li>
-            <li><a href="#chartNumPlatformsTitle">Platforms</a></li>
-            <li><a href="#chartNumTypesTitle">Types</a></li>
-            <li><a href="#chartDateCreatedTitle">Created Date</a></li>
-            <li><a href="#chartVotesTitle">Votes</a></li>
+            <li><a href="#chartNumPlatformsTitle">Applications per platforms</a></li>
+            <li><a href="#chartNumPremiumTypeTitleTitle">Applications per premium type</a></li>
+            <li><a href="#chartDateCreatedTitle">Applications per creation date</a></li>
+            <li><a href="#chartStatusDisabledTitle">Applications per disabling status</a></li>
+            <li><a href="#chartStatusPackagedTitle">Applications per packaging status</a></li>
+            <li><a href="#chartPublicStatsTitle">Applications with public stats</a></li>
+            <li><a href="#chartVotesTitle">Ratings</a></li>
             <li><a href="#mapRepartitionTitle">Geographic Repartition</a></li>
           </ul>
         </div>
@@ -59,7 +62,6 @@
 								}
 								return  month + '/' + x.getFullYear();
 							}
-						  //format: '%Y' // format string is also available for timeseries data
 						}
 					}
 				},
@@ -88,7 +90,7 @@
 			});
 		  </script>
 
-		  <h2 class="sub-header" id="chartNumPlatformsTitle">Platforms</h2>
+		  <h2 class="sub-header" id="chartNumPlatformsTitle">Applications per platforms</h2>
 		  <div id="chartNumPlatforms"></div>
 		  <script>
 		  var chart = c3.generate({
@@ -133,11 +135,11 @@
 			});
 		  </script>
 		  
-		  <h2 class="sub-header" id="chartNumTypesTitle">Types</h2>
-		  <div id="chartNumTypes"></div>
+		  <h2 class="sub-header" id="chartNumPremiumTypeTitle">Applications per premium type</h2>
+		  <div id="chartNumPremiumType"></div>
 		  <script>
 		  var chart = c3.generate({
-				bindto: '#chartNumTypes',
+				bindto: '#chartNumPremiumType',
 				axis : {
 					x : {
 						type : 'timeseries',
@@ -149,7 +151,6 @@
 								}
 								return  month + '/' + x.getFullYear();
 							}
-						  //format: '%Y' // format string is also available for timeseries data
 						}
 					},
 					y: {
@@ -191,7 +192,7 @@
 			});
 		  </script>
 		  
-		  <h2 class="sub-header" id="chartDateCreatedTitle">Created Date</h2>
+		  <h2 class="sub-header" id="chartDateCreatedTitle">Applications per creation date</h2>
 		  <div id="chartDateCreated"></div>
 		  <script>
 		  var chart = c3.generate({
@@ -230,7 +231,124 @@
 			});
 		  </script>
 		  
-		  <h2 class="sub-header" id="chartVotesTitle">Votes</h2>
+		  <h2 class="sub-header" id="chartStatusDisabledTitle">Applications per disabling status</h2>
+		  <div id="chartStatusDisabled"></div>
+		  <script>
+		  var chart = c3.generate({
+				bindto: '#chartStatusDisabled',
+				axis : {
+					x : {
+						type : 'timeseries',
+						tick: {
+							format: function (x) { 
+								var month = x.getMonth() + 1;
+								if(month < 10){
+									month = '0' + month;
+								}
+								return  month + '/' + x.getFullYear();
+							}
+						}
+					}
+				},
+				data: {
+					x : 'x',
+					columns: [
+						['x', '2013-06-01',"2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01"],
+						['data1', 97.16,97.36,96.64,96.53,96.47,97.85,97.23,98.00,96.52,96.59,96.84,96.75,96.06,95.85],
+						['data2', 1.25,1.32,2.04,2.47,2.57,1.33,1.69,1.00,1.89,1.89,1.75,1.96,2.74,2.99],
+					],
+					names: {
+						data1: 'Enabled',
+						data2: 'Disabled',
+					},
+				},
+				bar: {
+					width: {
+						ratio: 0.5
+					}
+				}
+			});
+		  </script>
+		  
+		  <h2 class="sub-header" id="chartStatusPackagedTitle">Applications per packaging status</h2>
+		  <div id="chartStatusPackaged"></div>
+		  <script>
+		  var chart = c3.generate({
+				bindto: '#chartStatusPackaged',
+				axis : {
+					x : {
+						type : 'timeseries',
+						tick: {
+							format: function (x) { 
+								var month = x.getMonth() + 1;
+								if(month < 10){
+									month = '0' + month;
+								}
+								return  month + '/' + x.getFullYear();
+							}
+						}
+					}
+				},
+				data: {
+					x : 'x',
+					columns: [
+						['x', '2013-06-01',"2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01"],
+						['data1', 97.16,97.36,96.64,96.53,96.47,97.85,97.23,98.00,96.52,96.59,96.84,96.75,96.06,95.85],
+						['data2', 1.25,1.32,2.04,2.47,2.57,1.33,1.69,1.00,1.89,1.89,1.75,1.96,2.74,2.99],
+					],
+					names: {
+						data1: 'Enabled',
+						data2: 'Disabled',
+					},
+				},
+				bar: {
+					width: {
+						ratio: 0.5
+					}
+				}
+			});
+		  </script>
+		  
+		  <h2 class="sub-header" id="chartPublicStatsTitle">Applications with public stats</h2>
+		  <div id="chartPublicStats"></div>
+		  <script>
+		  var chart = c3.generate({
+				bindto: '#chartPublicStats',
+				axis : {
+					x : {
+						type : 'timeseries',
+						tick: {
+							format: function (x) { 
+								var month = x.getMonth() + 1;
+								if(month < 10){
+									month = '0' + month;
+								}
+								return  month + '/' + x.getFullYear();
+							}
+						}
+					}
+				},
+				data: {
+					x : 'x',
+					columns: [
+						['x', '2013-06-01',"2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01"],
+						['data1', 97.16,97.36,96.64,96.53,96.47,97.85,97.23,98.00,96.52,96.59,96.84,96.75,96.06,95.85],
+						['data2', 1.25,1.32,2.04,2.47,2.57,1.33,1.69,1.00,1.89,1.89,1.75,1.96,2.74,2.99],
+					],
+					names: {
+						data1: 'Enabled',
+						data2: 'Disabled',
+					},
+				},
+				bar: {
+					width: {
+						ratio: 0.5
+					}
+				}
+			});
+		  </script>
+		  
+		  <h2 class="sub-header" id="chartVotesTitle">Ratings</h2>
 		  <div id="chartVotes"></div>
 		  <script>
 		  var chart = c3.generate({
@@ -341,7 +459,6 @@
 			"IR":1,
 			"ID":1
 		  };
-		  
 		  $('#mapRepartition').vectorMap({
 			map: 'world_mill_en',
 			zoomButtons : false,
