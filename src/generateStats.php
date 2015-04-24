@@ -22,7 +22,7 @@ ini_set('date.timezone','Europe/Paris');
 set_time_limit(0);
 
 // Path for the data archives
-$dirDataTgz = dirname(__FILE__).DIRECTORY_SEPARATOR.'data-tgz'.DIRECTORY_SEPARATOR;
+$dirDataTgz = dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'data-tgz'.DIRECTORY_SEPARATOR;
 
 // Listing of files
 $arrayFiles = array();
