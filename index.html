@@ -1,485 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Mozilla Firefox OS Marketplace Statistics">
-    <meta name="author" content="Progi1984">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Mozilla Marketplace Statistics">
+        <meta name="author" content="Progi1984">
 
-    <title>Mozilla Firefox OS Marketplace Statistics</title>
+        <title>Mozilla Marketplace Statistics</title>
 
-    <link href="statics/css/bootstrap.min.css" rel="stylesheet">
-    <link href="statics/css/main.css" rel="stylesheet">
-	<link href="statics/css/c3.min.css" rel="stylesheet">
-	<link href="statics/css/jquery-jvectormap-2.0.2.css" rel="stylesheet">
-	
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="statics/js/bootstrap.min.js"></script>
-	<script src="statics/js/d3.v3.min.js" charset="utf-8"></script>
-	<script src="statics/js/c3.min.js"></script>
-	<script src="statics/js/jquery-jvectormap-2.0.2.min.js"></script>
-	<script src="statics/js/jquery-jvectormap-world-mill-en.js"></script>
-  </head>
-  <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">Mozilla Firefox OS Marketplace Statistics</a>
+        <link href="statics/css/bootstrap.min.css" rel="stylesheet">
+        <link href="statics/css/main.css" rel="stylesheet">
+        <link href="statics/css/c3.min.css" rel="stylesheet">
+        <link href="statics/css/jquery-jvectormap-2.0.2.css" rel="stylesheet">
+        <link href="statics/css/font-awesome.min.css" rel="stylesheet" >
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="statics/js/bootstrap.min.js"></script>
+        <script src="statics/js/d3.v3.min.js" charset="utf-8"></script>
+        <script src="statics/js/c3.min.js"></script>
+        <script src="statics/js/jquery-jvectormap-2.0.2.min.js"></script>
+        <script src="statics/js/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="statics/js/app.js"></script>
+    </head>
+    <body data-spy="scroll" data-target="#navSpy">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">Mozilla Marketplace Statistics</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://github.com/Progi1984/mozFxOsStats"><i class="fa fa-github"></i> Github</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> Progi1984 <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="https://github.com/Progi1984"><i class="fa fa-github"></i> Github</a></li>
+                                <li><a href="https://twitter.com/Progi1984"><i class="fa fa-twitter"></i> Twitter</a></li>
+                                <li><a href="http://rootslabs.net/blog/"><i class="fa fa-paper-plane"></i> Website</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar" id="navSpy">
+                    <ul class="nav nav-sidebar">
+                        <li class="active"><a href="#chartNumAppsTitle">Applications</a></li>
+                        <li><a href="#chartNumAppsPlatformTitle">Applications per platforms</a></li>
+                        <li><a href="#chartNumAppsCategoriesTitle">Applications per categories</a></li>
+                        <li><a href="#chartNumAppsStatusTitle">Applications per status</a></li>
+                        <li><a href="#chartNumAppsDateCreatedTitle">Applications per creation date</a></li>
+                        <li><a href="#chartNumAppsDateUpdatedTitle">Applications per last update date</a></li>
+                        <li><a href="#chartNumAppsFileSizeTitle">Applications per file size</a></li>
+                        <li><a href="#chartNumAppsStatusDisabledTitle">Applications per disabling status</a></li>
+                        <li><a href="#chartNumAppsStatusPackagedTitle">Applications per packaging status</a></li>
+                        <li><a href="#chartNumAppsPublicStatsTitle">Applications with public stats</a></li>
+                        <li><a href="#chartNumAppsPremiumTypeTitle">Applications per premium type</a></li>
+                        <li><a href="#chartNumPaidAppsPerPriceTitle">Paid applications per price</a></li>
+                        <li><a href="#chartNumRatingsTitle">Ratings</a></li>
+                        <li><a href="#mapRepartitionTitle">Geographic Repartition</a></li>
+                        <li><a href="#topPublishersTitle">Top Publishers</a></li>
+                        <li><a href="#topRatedAppsTitle">Top Rated Apps</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <div class="jumbotron">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="statics/img/firefox-marketplace_logo.png" class="img-responsive" >
+                            </div>
+
+                            <div class="col-md-9">
+                                <h1>Mozilla Marketplace Statistics</h1>
+                                <p>
+                                    These statistics are calculated from <a href="https://firefox-marketplace-api.readthedocs.org/en/latest/topics/export.html">the nightly export of data of the Marketplace</a>.<br />
+                                    They are processed with <a href="https://travis-ci.org/Progi1984/mozFxOsStats">Travis-CI</a> from the <a href="https://github.com/Progi1984/mozFxOsStats/tree/develop">develop branch of this repository</a>.
+                                </p>
+                                <p>
+                                    <small>Disclaimer : These statistics are unofficial.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="sub-header" id="chartNumAppsTitle">Applications</h2>
+                    <div id="chartNumApps"></div>
+
+                    <h2 class="sub-header" id="chartNumAppsPlatformTitle">Applications per platforms</h2>
+                    <div id="chartNumAppsPlatform"></div>
+
+                    <h2 class="sub-header" id="chartNumAppsCategoriesTitle">Applications per categories</h2>
+                    <div id="chartNumAppsCategories"></div>
+
+                    <h2 class="sub-header" id="chartNumAppsStatusTitle">Applications per status</h2>
+                    <div id="chartNumAppsStatus"></div>
+
+                    <h2 class="sub-header" id="chartNumAppsDateCreatedTitle">Applications per creation date</h2>
+                    <div id="chartNumAppsDateCreated"></div>
+
+                    <h2 class="sub-header" id="chartNumAppsDateUpdatedTitle">Applications per last update date</h2>
+                    <div id="chartNumAppsDateUpdated"></div>
+
+                    <h2 class="sub-header" id="chartNumAppsFileSizeTitle">Applications per file size</h2>
+                    <div id="chartNumAppsFileSize"></div>
+
+                    <h2 class="sub-header" id="chartNumAppsStatusDisabledTitle">Applications per disabling status</h2>
+                    <div id="chartNumAppsStatusDisabled"></div>
+
+                    <h2 class="sub-header" id="chartNumAppsStatusPackagedTitle">Applications per packaging status</h2>
+                    <div id="chartNumAppsStatusPackaged"></div>
+
+                    <h2 class="sub-header" id="chartNumAppsPublicStatsTitle">Applications with public stats</h2>
+                    <div id="chartNumAppsPublicStats"></div>
+
+                    <h2 class="sub-header" id="chartNumAppsPremiumTypeTitle">Applications per premium type</h2>
+                    <div id="chartNumAppsPremiumType"></div>
+
+                    <h2 class="sub-header" id="chartNumPaidAppsPerPriceTitle">Paid applications per price</h2>
+                    <div id="chartNumPaidAppsPerPrice"></div>
+
+                    <h2 class="sub-header" id="chartNumRatingsTitle">Ratings</h2>
+                    <div id="chartNumRatings"></div>
+                    <div id="chartAvgRatings"></div>
+
+                    <h2 class="sub-header" id="mapRepartitionTitle">Geographic Repartition</h2>
+                    <div id="mapRepartition" style="height: 400px"></div>
+
+
+                    <h2 class="sub-header" id="topPublishersTitle">Top Publishers</h2>
+                    <table class="table table-bordered table-striped" id="topPublishers">
+                        <thead>
+                            <tr>
+                                <th>Publisher</th>
+                                <th>Num Apps</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                    <h2 class="sub-header" id="topRatedAppsTitle">Top Rated Apps</h2>
+                    <table class="table table-bordered table-striped" id="topRatedApps">
+                        <thead>
+                        <tr>
+                            <th>Application</th>
+                            <th>Num Ratings</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-    </nav>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#chartTypeAppsTitle">Applications <span class="sr-only">(current)</span></a></li>
-            <li><a href="#chartNumPlatformsTitle">Applications per platforms</a></li>
-            <li><a href="#chartNumPremiumTypeTitleTitle">Applications per premium type</a></li>
-            <li><a href="#chartDateCreatedTitle">Applications per creation date</a></li>
-            <li><a href="#chartStatusDisabledTitle">Applications per disabling status</a></li>
-            <li><a href="#chartStatusPackagedTitle">Applications per packaging status</a></li>
-            <li><a href="#chartPublicStatsTitle">Applications with public stats</a></li>
-            <li><a href="#chartVotesTitle">Ratings</a></li>
-            <li><a href="#mapRepartitionTitle">Geographic Repartition</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Statistics</h1>
-          <h2 class="sub-header first" id="chartTypeAppsTitle">Applications</h2>
-		  <div id="chartTypeApps"></div>
-		  <script>
-		  var chart = c3.generate({
-				bindto: '#chartTypeApps',
-				axis : {
-					x : {
-						type : 'timeseries',
-						tick: {
-							format: function (x) { 
-								var month = x.getMonth() + 1;
-								if(month < 10){
-									month = '0' + month;
-								}
-								return  month + '/' + x.getFullYear();
-							}
-						}
-					}
-				},
-				data: {
-					x : 'x',
-					columns: [
-						['x', '2013-06-01',"2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01"],
-						['data1', 880,1211,1518,1900,2098,1950,1300,1000,3071,3342,3540,3821,4085,4288],
-						['data2', 786,1022,1151,1294,1369,1240,829,629,1475,1527,1575,1713,1753,0],
-						['data3', 94,189,367,606,661,640,439,338,1342,1563,1701,1826,2035,0],
-						['data4', 0,0,0,0,68,70,32,33,254,252,264,282,297,0],
-					],
-					names: {
-						data1: 'Total',
-						data2: 'Type : hosted',
-						data3: 'Type : packaged',
-						data4: 'Type : priviliged',
-					},
-					types: {
-						data1: 'area-spline',
-						data2: 'area-spline',
-						data3: 'area-spline',
-						data4: 'area-spline',
-					}
-				},
-			});
-		  </script>
-
-		  <h2 class="sub-header" id="chartNumPlatformsTitle">Applications per platforms</h2>
-		  <div id="chartNumPlatforms"></div>
-		  <script>
-		  var chart = c3.generate({
-				bindto: '#chartNumPlatforms',
-				axis : {
-					x : {
-						type : 'timeseries',
-						tick: {
-							format: function (x) { 
-								var month = x.getMonth() + 1;
-								if(month < 10){
-									month = '0' + month;
-								}
-								return  month + '/' + x.getFullYear();
-							}
-						  //format: '%Y' // format string is also available for timeseries data
-						}
-					}
-				},
-				data: {
-					x : 'x',
-					columns: [
-						['x', '2013-06-01',"2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01"],
-						['data1', 655,728,784,883,936,839,570,390,984,1026,1072,1208,1279,1390],
-						['data2', 441,590,673,783,824,752,437,395,945,977,1065,1245,1371,1466],
-						['data3', 417,597,696,820,861,786,484,419,1009,1053,1151,1334,1469,1588],
-						['data4', 560,862,1155,1523,1702,1590,1036,826,2748,3008,3201,3425,3684,3870],
-					],
-					names: {
-						data1: 'desktop',
-						data2: 'android-tablet',
-						data3: 'android-mobile',
-						data4: 'firefoxos',
-					},
-					type: 'bar'
-				},
-				bar: {
-					width: {
-						ratio: 0.5
-					}
-				}
-			});
-		  </script>
-		  
-		  <h2 class="sub-header" id="chartNumPremiumTypeTitle">Applications per premium type</h2>
-		  <div id="chartNumPremiumType"></div>
-		  <script>
-		  var chart = c3.generate({
-				bindto: '#chartNumPremiumType',
-				axis : {
-					x : {
-						type : 'timeseries',
-						tick: {
-							format: function (x) { 
-								var month = x.getMonth() + 1;
-								if(month < 10){
-									month = '0' + month;
-								}
-								return  month + '/' + x.getFullYear();
-							}
-						}
-					},
-					y: {
-						max: 100,
-						min: 0,
-						padding: {
-							top: 0, 
-							bottom: 0
-						}
-					}
-				},
-				data: {
-					x : 'x',
-					columns: [
-						['x', '2013-06-01',"2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01"],
-						['data1', 97.16,97.36,96.64,96.53,96.47,97.85,97.23,98.00,96.52,96.59,96.84,96.75,96.06,95.85],
-						['data2', 1.25,1.32,2.04,2.47,2.57,1.33,1.69,1.00,1.89,1.89,1.75,1.96,2.74,2.99],
-						['data3', 0.80,0.66,0.53,0.42,0.38,0.31,0.31,0.40,0.07,0.06,0.06,0.10,0.10,0.12],
-						['data4', 0.68,0.50,0.40,0.32,0.29,0.21,0.31,0.40,0.10,0.09,0.08,0.08,0.07,0.07],
-						['data5', 0.11,0.17,0.40,0.26,0.29,0.31,0.46,0.20,1.43,1.38,1.27,1.10,1.03,0.98],
-					],
-					groups: [
-						['data1', 'data2', 'data3', 'data4', 'data5']
-					],
-					names: {
-						data1: 'free',
-						data2: 'premium',
-						data3: 'free-inapp',
-						data4: 'other',
-						data5: 'premium-inapp',
-					},
-					type: 'bar'
-				},
-				bar: {
-					width: {
-						ratio: 0.5
-					}
-				}
-			});
-		  </script>
-		  
-		  <h2 class="sub-header" id="chartDateCreatedTitle">Applications per creation date</h2>
-		  <div id="chartDateCreated"></div>
-		  <script>
-		  var chart = c3.generate({
-				bindto: '#chartDateCreated',
-				axis : {
-					x : {
-						type : 'timeseries',
-						tick: {
-							format: function (x) { 
-								var month = x.getMonth() + 1;
-								if(month < 10){
-									month = '0' + month;
-								}
-								return  month + '/' + x.getFullYear();
-							}
-						  //format: '%Y' // format string is also available for timeseries data
-						}
-					},
-					y: {
-						min: 0,
-						padding: {
-							bottom: 0
-						}
-					}
-				},
-				data: {
-					x : 'x',
-					columns: [
-						['x', "2012-02-01","2012-03-01","2012-04-01","2012-05-01","2012-06-01","2012-07-01","2012-08-01","2012-09-01","2012-10-01","2012-11-01","2012-12-01","2013-01-01","2013-02-01","2013-03-01","2013-04-01","2013-05-01","2013-06-01","2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01"],
-						['data1', 13,34,43,27,28,21,13,44,55,50,28,69,92,137,82,161,131,233,281,238,366,253,223,331,282,265,325,258,204,1],
-					],
-					names: {
-						data1: 'Date de création',
-					},
-				}
-			});
-		  </script>
-		  
-		  <h2 class="sub-header" id="chartStatusDisabledTitle">Applications per disabling status</h2>
-		  <div id="chartStatusDisabled"></div>
-		  <script>
-		  var chart = c3.generate({
-				bindto: '#chartStatusDisabled',
-				axis : {
-					x : {
-						type : 'timeseries',
-						tick: {
-							format: function (x) { 
-								var month = x.getMonth() + 1;
-								if(month < 10){
-									month = '0' + month;
-								}
-								return  month + '/' + x.getFullYear();
-							}
-						}
-					}
-				},
-				data: {
-					x : 'x',
-					columns: [
-						['x', '2013-06-01',"2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01"],
-						['data1', 97.16,97.36,96.64,96.53,96.47,97.85,97.23,98.00,96.52,96.59,96.84,96.75,96.06,95.85],
-						['data2', 1.25,1.32,2.04,2.47,2.57,1.33,1.69,1.00,1.89,1.89,1.75,1.96,2.74,2.99],
-					],
-					names: {
-						data1: 'Enabled',
-						data2: 'Disabled',
-					},
-				},
-				bar: {
-					width: {
-						ratio: 0.5
-					}
-				}
-			});
-		  </script>
-		  
-		  <h2 class="sub-header" id="chartStatusPackagedTitle">Applications per packaging status</h2>
-		  <div id="chartStatusPackaged"></div>
-		  <script>
-		  var chart = c3.generate({
-				bindto: '#chartStatusPackaged',
-				axis : {
-					x : {
-						type : 'timeseries',
-						tick: {
-							format: function (x) { 
-								var month = x.getMonth() + 1;
-								if(month < 10){
-									month = '0' + month;
-								}
-								return  month + '/' + x.getFullYear();
-							}
-						}
-					}
-				},
-				data: {
-					x : 'x',
-					columns: [
-						['x', '2013-06-01',"2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01"],
-						['data1', 97.16,97.36,96.64,96.53,96.47,97.85,97.23,98.00,96.52,96.59,96.84,96.75,96.06,95.85],
-						['data2', 1.25,1.32,2.04,2.47,2.57,1.33,1.69,1.00,1.89,1.89,1.75,1.96,2.74,2.99],
-					],
-					names: {
-						data1: 'Enabled',
-						data2: 'Disabled',
-					},
-				},
-				bar: {
-					width: {
-						ratio: 0.5
-					}
-				}
-			});
-		  </script>
-		  
-		  <h2 class="sub-header" id="chartPublicStatsTitle">Applications with public stats</h2>
-		  <div id="chartPublicStats"></div>
-		  <script>
-		  var chart = c3.generate({
-				bindto: '#chartPublicStats',
-				axis : {
-					x : {
-						type : 'timeseries',
-						tick: {
-							format: function (x) { 
-								var month = x.getMonth() + 1;
-								if(month < 10){
-									month = '0' + month;
-								}
-								return  month + '/' + x.getFullYear();
-							}
-						}
-					}
-				},
-				data: {
-					x : 'x',
-					columns: [
-						['x', '2013-06-01',"2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01"],
-						['data1', 97.16,97.36,96.64,96.53,96.47,97.85,97.23,98.00,96.52,96.59,96.84,96.75,96.06,95.85],
-						['data2', 1.25,1.32,2.04,2.47,2.57,1.33,1.69,1.00,1.89,1.89,1.75,1.96,2.74,2.99],
-					],
-					names: {
-						data1: 'Enabled',
-						data2: 'Disabled',
-					},
-				},
-				bar: {
-					width: {
-						ratio: 0.5
-					}
-				}
-			});
-		  </script>
-		  
-		  <h2 class="sub-header" id="chartVotesTitle">Ratings</h2>
-		  <div id="chartVotes"></div>
-		  <script>
-		  var chart = c3.generate({
-				bindto: '#chartVotes',
-				data: {
-					columns: [
-						['data1', 189],
-						['data2', 222],
-						['data3', 504],
-						['data4', 740],
-						['data5', 619],
-					],
-					names: {
-						data1: 'Vote 1',
-						data2: 'Vote 2',
-						data3: 'Vote 3',
-						data4: 'Vote 4',
-						data5: 'Vote 5',
-					},
-					type : 'donut',
-				},
-			});
-		  </script>
-		  
-		  <div id="chartVoteAverage"></div>
-		  <script>
-		  var chart = c3.generate({
-				bindto: '#chartVoteAverage',
-				axis : {
-					x : {
-						type : 'timeseries',
-						tick: {
-							format: function (x) { 
-								var month = x.getMonth() + 1;
-								if(month < 10){
-									month = '0' + month;
-								}
-								return  month + '/' + x.getFullYear();
-							}
-						  //format: '%Y' // format string is also available for timeseries data
-						}
-					},
-					y: {
-						max: 5,
-						min: 0,
-						padding: {
-							top: 0, 
-							bottom: 0
-						}
-					},
-					y2: {
-						show: true,
-						min: 0,
-						padding: {
-							top: 0, 
-							bottom: 0
-						}
-					}
-				},
-				data: {
-					x:'x',
-					axes: {
-						data1: 'y',
-						data2: 'y2',
-					},
-					columns: [
-						['x', '2013-06-01',"2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01"],
-						['data1', 1.293193864,1.094840793,1.06221917,1.081360947,1.106607388,1.107468872,1.165725615,1.034426,1.692911169,1.7852833333333,1.8929714689266,1.9293671290238,1.9767375764994,2.0295355410448],
-						['data2', 1136,1326,1637,2213,2731,2644,1861,1471,9216,11205,13960,17207,20784,23943],
-					],
-					names: {
-						data1: 'Note moyenne',
-						data2: 'Nombre de votes total',
-					},
-				},
-			});
-		  </script>
-		  
-		  <h2 class="sub-header" id="mapRepartitionTitle">Geographic Repartition</h2>
-		  <div id="mapRepartition" style="height: 400px"></div>
-		  <script>
-		  var geoData = {
-			"US":3210,
-			"PL":46,
-			"DE":88,
-			"BR":153,
-			"FR":59,
-			"ES":470,
-			"RU":14,
-			"JP":10,
-			"KR":1,
-			"TW":8,
-			"PT":90,
-			"IT":41,
-			"CN":14,
-			"CZ":3,
-			"AM":2,
-			"RO":2,
-			"VN":2,
-			"SR":18,
-			"NL":9,
-			"HU":29,
-			"BG":1,
-			"SI":1,
-			"FI":1,
-			"GR":8,
-			"SE":2,
-			"IR":1,
-			"ID":1
-		  };
-		  $('#mapRepartition').vectorMap({
-			map: 'world_mill_en',
-			zoomButtons : false,
-			zoomOnScroll: false,
-			series: {
-			  regions: [{
-			    values: geoData,
-			    scale: ['#C8EEFF', '#0071A4'],
-			    normalizeFunction: 'polynomial'
-			  }]
-			},
-			onRegionTipShow: function(event, label, code){
-              label.html(
-                '<b>'+label.html()+'</b></br>'+'<b>Num apps : </b>'+(geoData[code] == undefined ? 0 : geoData[code])
-              );
-            }
-		  });
-		  </script>
-
-        </div>
-	  </div>
-    </div>
-  </body>
+        <!-- Piwik -->
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function() {
+                var u="//piwik.rootslabs.net/";
+                _paq.push(['setTrackerUrl', u+'piwik.php']);
+                _paq.push(['setSiteId', 11]);
+                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+            })();
+        </script>
+        <noscript><p><img src="//piwik.rootslabs.net/piwik.php?idsite=11" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+    </body>
 </html>

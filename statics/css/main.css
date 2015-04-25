@@ -4,11 +4,8 @@ body  {
 
 .sub-header {
   padding-bottom: 10px;
-	padding-top: 60px;
+  padding-top: 60px;
   border-bottom: 1px solid #eee;
-}
-.sub-header.first{
-	padding-top: 0;
 }
 
 .navbar-fixed-top {
@@ -65,5 +62,5 @@ body  {
 }
 
 #mapRepartition {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
