@@ -449,24 +449,31 @@ $(document).ready(function(){
         chartNumApps.load({
             rows:dataNumApps
         });
+        chartNumApps.flush();
         chartNumAppsPlatform.load({
             rows:dataNumAppsPlatform
         });
+        chartNumAppsPlatform.flush();
         chartNumAppsPremiumType.load({
             rows:dataNumAppsPremiumType
         });
+        chartNumAppsPremiumType.flush();
         chartNumAppsStatusDisabled.load({
             rows:dataNumAppsStatusDisabled
         });
+        chartNumAppsStatusDisabled.flush();
         chartNumAppsStatusPackaged.load({
             rows:dataNumAppsStatusPackaged
         });
+        chartNumAppsStatusPackaged.flush();
         chartNumAppsPublicStats.load({
             rows:dataNumAppsPublicStats
         });
+        chartNumAppsPublicStats.flush();
         chartAvgRatings.load({
             rows:dataAvgRatings
         });
+        chartAvgRatings.flush();
 
         // chartNumAppsDateCreated
         var dataNumAppsDateCreated = [['x', 'data1']];
