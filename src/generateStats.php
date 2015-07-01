@@ -141,6 +141,7 @@ $arrayGeo = array(
   'pt-PT' => 'PT',
   'ro' => 'RO',
   'ru' => 'RU',
+  'sk' => 'SK',
   'sl' => 'SI',
   'sq' => 'AL',
   'sr' => 'RS',
