@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 DATEDAY=`date +"%Y-%m-%d"`
+DATEYESTERDAY=`date +"%Y-%m-%d" -d "1 day ago"`
 DATEMONTH=`date +"%Y-%m-01"`
 
 if [ "$TRAVIS_REPO_SLUG" == "Progi1984/mozFxOsStats" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then
@@ -39,6 +40,16 @@ if [ "$TRAVIS_REPO_SLUG" == "Progi1984/mozFxOsStats" ] && [ "$TRAVIS_PULL_REQUES
         git add -f datas-tgz/$DATEDAY.tgz
         git commit -m "CI Archive File $DATEDAY"
         git push -f origin develop > /dev/null
+      else
+        echo '>>> else we develop the file of yesterday'
+        ## else we develop the file of yesterday
+        wget --quiet --spider https://marketplace.cdn.mozilla.net/dumped-apps/tarballs/$DATEYESTERDAY.tgz
+        if [[ $? == 0 ]]
+        then
+          echo '>>>> we download the file of yesterday and commit it'
+          ## we download the file of yesterday
+          wget --directory-prefix=datas-tgz https://marketplace.cdn.mozilla.net/dumped-apps/tarballs/$DATEYESTERDAY.tgz
+        fi
       fi
     fi
   fi
