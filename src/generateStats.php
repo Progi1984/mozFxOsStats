@@ -212,6 +212,10 @@ foreach($arrayFiles as $key => $filename){
     }
     // Application
     $oApp = json_decode($content);
+    if(!is_object($oApp)) {
+      echo $dirDataTgz.$filename.' - '.$oFile->getPathname().PHP_EOL;
+      continue;
+    }
     
     // Stats
     $arrayStats['numApps'][$filename]++;
