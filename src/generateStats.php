@@ -122,6 +122,7 @@ $arrayGeo = array(
   'ca' => 'ES',
   'cs' => 'CZ',
   'de' => 'DE',
+  'en-GB' => 'GB',
   'en-US' => 'US',
   'el' => 'GR',
   'es' => 'ES',
@@ -213,7 +214,6 @@ foreach($arrayFiles as $key => $filename){
     // Application
     $oApp = json_decode($content);
     if(!is_object($oApp)) {
-      echo $dirDataTgz.$filename.' - '.$oFile->getPathname().PHP_EOL;
       continue;
     }
     
